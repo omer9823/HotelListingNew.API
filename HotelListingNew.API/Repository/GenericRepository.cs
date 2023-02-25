@@ -19,14 +19,17 @@ namespace HotelListingNew.API.Repository
             return entity;
         }
 
-        Task<T> IGenericRepository<T>.DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetAsync(id);
+            _context.Set<T>().Remove(entity);
+            await _context.SaveChangesAsync();
         }
 
-        Task<bool> IGenericRepository<T>.Exists(int id)
+        public async Task<bool> Exists(int id)
         {
-            throw new NotImplementedException();
+            var entity = await GetAsync(id);
+            return entity != null;
         }
 
         public async Task<List<T>> GetAllAsync()
@@ -44,9 +47,10 @@ namespace HotelListingNew.API.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
-        Task<T> IGenericRepository<T>.UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity)
         {
-            throw new NotImplementedException();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }

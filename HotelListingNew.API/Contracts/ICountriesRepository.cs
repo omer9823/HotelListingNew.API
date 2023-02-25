@@ -1,6 +1,9 @@
-﻿namespace HotelListingNew.API.Contracts
+﻿using HotelListingNew.API.Data;
+
+namespace HotelListingNew.API.Contracts
 {
-    public class ICountriesRepository
+    public interface ICountriesRepository : IGenericRepository<Country>
     {
+        Task<Country> GetDetails(int? id);
     }
 }
